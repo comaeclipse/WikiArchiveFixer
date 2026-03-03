@@ -15,7 +15,7 @@ export default function ArticleTab({ onFix, onFixDeadLinks }) {
 
   return (
     <>
-      <AutocompleteInput placeholder="Search for a Wikipedia article\u2026" value={input} onChange={setInput} onGo={go} loading={engine.loading} onStop={engine.stop} searchFn={searchArticles} />
+      <AutocompleteInput placeholder="Search for a Wikipedia article…" value={input} onChange={setInput} onGo={go} loading={engine.loading} onStop={engine.stop} searchFn={searchArticles} />
       <label style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '8px 0 12px', fontSize: 13, color: C.textSec, cursor: 'pointer', userSelect: 'none' }}>
         <input type="checkbox" checked={checkRefs} onChange={e => setCheckRefs(e.target.checked)} style={{ accentColor: C.accent }} />
         Check references for dead links

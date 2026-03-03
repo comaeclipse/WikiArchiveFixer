@@ -18,7 +18,7 @@ export default function CategoryTab({ onFix, onFixDeadLinks }) {
 
   return (
     <>
-      <AutocompleteInput placeholder="Search for a Wikipedia category\u2026" value={input} onChange={setInput} onGo={go} loading={engine.loading} onStop={engine.stop} searchFn={searchCategories} />
+      <AutocompleteInput placeholder="Search for a Wikipedia category…" value={input} onChange={setInput} onGo={go} loading={engine.loading} onStop={engine.stop} searchFn={searchCategories} />
       <label style={{ display: 'flex', alignItems: 'center', gap: 8, margin: '8px 0 12px', fontSize: 13, color: C.textSec, cursor: 'pointer', userSelect: 'none' }}>
         <input type="checkbox" checked={checkRefs} onChange={e => setCheckRefs(e.target.checked)} style={{ accentColor: C.accent }} />
         Check references for dead links
