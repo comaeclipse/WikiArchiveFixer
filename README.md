@@ -1,8 +1,8 @@
-# FixArchive
+# WikiArchiveFixer
 
 > **Work in progress.** This project is under active development and not yet feature-complete.
 
-FixArchive is a tool for detecting and replacing [archive.today](https://archive.today) links in Wikipedia articles with [Wayback Machine](https://web.archive.org) alternatives. It scans articles for archive.today URLs (across all known domain variants), checks for Wayback Machine mirrors, validates reference links, and can submit edits directly to Wikipedia.
+WikiArchiveFixer is a tool for detecting and replacing archive.today links in Wikipedia articles with [Wayback Machine](https://web.archive.org) alternatives. It scans articles for archive.today URLs (across all known domain variants), checks for Wayback Machine mirrors, validates reference links, and can submit edits directly to Wikipedia.
 
 Based on the original [wikipedia-archive-today-detector](https://github.com/nethahussain/wikipedia-archive-today-detector) by Netha Hussain.
 
