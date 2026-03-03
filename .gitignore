@@ -1,0 +1,29 @@
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*.so
+
+# Frontend
+node_modules/
+frontend/dist/
+
+# Runtime data
+data/fixarchive.db
+data/pywikibot/
+apicache/
+throttle.ctrl
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# Environment
+.env
+.env.*
+
+# Claude Code
+.claude/
