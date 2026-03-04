@@ -23,16 +23,19 @@ Based on the original [wikipedia-archive-today-detector](https://github.com/neth
 ## Quick Start
 
 ```bash
-./start.sh
+python start.py
 ```
 
-This handles everything: creates a Python virtual environment, installs dependencies, builds the frontend, and starts the server at **http://localhost:8000**.
+Works on Windows, macOS, and Linux. Handles everything: creates a Python virtual environment, installs dependencies, builds the frontend, and starts the server at **http://localhost:8000**.
 
 ## Manual Setup
 
 ```bash
 # Backend
 python -m venv venv
+# Windows:
+venv\Scripts\activate
+# macOS/Linux:
 source venv/bin/activate
 pip install -r requirements.txt
 
