@@ -1,7 +1,9 @@
-from fastapi import APIRouter, Query
+import random
+
+from fastapi import APIRouter, HTTPException, Query
 import httpx
 
-from backend.config import WIKI_API, HTTP_HEADERS
+from backend.config import WIKI_API, HTTP_HEADERS, AT_DOMAINS
 
 router = APIRouter()
 
@@ -89,3 +91,26 @@ async def category_members(cat: str = Query(...), limit: int = Query(500, le=500
                 break
 
     return {"category": prefix, "titles": titles[:limit]}
+
+
+@router.get("/lucky")
+async def lucky_article():
+    tlds = AT_DOMAINS.copy()
+    random.shuffle(tlds)
+    async with httpx.AsyncClient(headers=HTTP_HEADERS) as client:
+        for tld in tlds:
+            offset = random.randint(0, 500)
+            resp = await client.get(
+                WIKI_API,
+                params={
+                    "action": "query", "list": "search",
+                    "srsearch": f'insource:"{tld}" -intitle:"{tld}"',
+                    "srnamespace": "0", "srlimit": "10",
+                    "sroffset": str(offset), "format": "json",
+                },
+                timeout=15.0,
+            )
+            results = resp.json().get("query", {}).get("search", [])
+            if results:
+                return {"title": random.choice(results)["title"]}
+    raise HTTPException(status_code=404, detail="No results found")

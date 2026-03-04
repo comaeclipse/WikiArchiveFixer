@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { C } from '../constants';
 
-export default function AutocompleteInput({ placeholder, value, onChange, onGo, loading, onStop, searchFn, displayFn }) {
+export default function AutocompleteInput({ placeholder, value, onChange, onGo, loading, onStop, searchFn, displayFn, hideButton }) {
   const [suggestions, setSuggestions] = useState([]);
   const [showDrop, setShowDrop] = useState(false);
   const [activeIdx, setActiveIdx] = useState(-1);
@@ -62,12 +62,12 @@ export default function AutocompleteInput({ placeholder, value, onChange, onGo, 
           </div>
         )}
       </div>
-      <button onClick={loading ? onStop : onGo} disabled={!value.trim() && !loading}
+      {!hideButton && <button onClick={loading ? onStop : onGo} disabled={!value.trim() && !loading}
         onMouseEnter={e => { if (!loading) e.currentTarget.style.background = C.btnDarkHover; }}
         onMouseLeave={e => { if (!loading) e.currentTarget.style.background = C.btnDark; }}
         style={{ padding: '12px 28px', borderRadius: C.radiusSm, border: 'none', background: loading ? C.red : C.btnDark, color: '#FAF9F5', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: C.sans, opacity: (!value.trim() && !loading) ? 0.35 : 1, boxShadow: C.shadow, alignSelf: 'flex-start' }}>
         {loading ? 'Stop' : 'Scan'}
-      </button>
+      </button>}
     </div>
   );
 }

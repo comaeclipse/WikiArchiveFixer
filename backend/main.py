@@ -6,7 +6,7 @@ from fastapi.staticfiles import StaticFiles
 
 from backend.config import DATA_DIR
 from backend.database import init_db
-from backend.routers import wiki, scan, wayback, deadcheck, edit, history
+from backend.routers import wiki, scan, wayback, deadcheck, edit, history, high_traffic
 
 app = FastAPI(title="FixArchive")
 
@@ -23,6 +23,7 @@ app.include_router(wayback.router, prefix="/api/wayback", tags=["wayback"])
 app.include_router(deadcheck.router, prefix="/api/deadcheck", tags=["deadcheck"])
 app.include_router(edit.router, prefix="/api/edit", tags=["edit"])
 app.include_router(history.router, prefix="/api/history", tags=["history"])
+app.include_router(high_traffic.router, prefix="/api/high-traffic", tags=["high-traffic"])
 
 FRONTEND_DIST = Path(__file__).resolve().parent.parent / "frontend" / "dist"
 

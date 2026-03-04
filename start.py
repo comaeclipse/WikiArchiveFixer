@@ -58,5 +58,11 @@ else:
 # 4. Start server
 header("\nStarting server at http://localhost:8000")
 print("Press Ctrl+C to stop.\n")
-run(str(VENV_PY), "-m", "uvicorn", "backend.main:app",
-    "--host", "0.0.0.0", "--port", "8000", "--reload", cwd=ROOT)
+try:
+    subprocess.run(
+        [str(VENV_PY), "-m", "uvicorn", "backend.main:app",
+         "--host", "0.0.0.0", "--port", "8000"],
+        cwd=ROOT,
+    )
+except KeyboardInterrupt:
+    pass

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 from datetime import datetime, timezone
 
 import aiosqlite
@@ -67,6 +68,12 @@ CREATE INDEX IF NOT EXISTS idx_urls_article ON urls(article_id);
 CREATE INDEX IF NOT EXISTS idx_edit_history_article ON edit_history(article_id);
 CREATE INDEX IF NOT EXISTS idx_retry_queue_next ON retry_queue(next_retry_at);
 CREATE INDEX IF NOT EXISTS idx_ref_urls_article ON ref_urls(article_id);
+
+CREATE TABLE IF NOT EXISTS high_traffic_cache (
+    id INTEGER PRIMARY KEY CHECK (id = 1),
+    fetched_at TEXT NOT NULL,
+    pages TEXT NOT NULL
+);
 """
 
 
@@ -316,6 +323,28 @@ async def list_retries(limit: int = 50, offset: int = 0) -> list[dict]:
 async def delete_retry(retry_id: int):
     async with _db() as conn:
         await conn.execute("DELETE FROM retry_queue WHERE id=?", (retry_id,))
+        await conn.commit()
+
+
+# ── High Traffic Cache ──
+
+
+async def get_high_traffic_cache() -> dict | None:
+    async with _db() as conn:
+        rows = await conn.execute_fetchall("SELECT * FROM high_traffic_cache WHERE id = 1")
+        if not rows:
+            return None
+        r = dict(rows[0])
+        return {"fetched_at": r["fetched_at"], "pages": json.loads(r["pages"])}
+
+
+async def set_high_traffic_cache(pages: list[str]):
+    async with _db() as conn:
+        await conn.execute(
+            "INSERT INTO high_traffic_cache (id, fetched_at, pages) VALUES (1, ?, ?)"
+            " ON CONFLICT(id) DO UPDATE SET fetched_at=excluded.fetched_at, pages=excluded.pages",
+            (_now(), json.dumps(pages)),
+        )
         await conn.commit()
 
 

@@ -16,6 +16,8 @@ export const searchCategories = (q) =>
 export const fetchCategoryMembers = (cat, limit = 500) =>
   fetchJSON(`${BASE}/wiki/category-members?cat=${encodeURIComponent(cat)}&limit=${limit}`).then(d => d.titles);
 
+export const fetchLucky = () => fetchJSON(`${BASE}/wiki/lucky`);
+
 // Deadcheck
 export const batchDeadcheck = (urlIds) =>
   fetchJSON(`${BASE}/deadcheck/check`, {
@@ -53,6 +55,11 @@ export const submitDeadlinks = (articleId, summary) =>
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ article_id: articleId, summary }),
   });
+
+// High Traffic
+export const fetchHighTraffic = () => fetchJSON(`${BASE}/high-traffic`);
+export const refreshHighTraffic = () =>
+  fetchJSON(`${BASE}/high-traffic/refresh`, { method: 'POST' });
 
 // History
 export const fetchStats = () => fetchJSON(`${BASE}/history/stats`);

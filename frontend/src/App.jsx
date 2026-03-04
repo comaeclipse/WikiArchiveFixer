@@ -5,6 +5,7 @@ import ArticleTab from './components/tabs/ArticleTab';
 import CategoryTab from './components/tabs/CategoryTab';
 import TopicTab from './components/tabs/TopicTab';
 import HistoryTab from './components/tabs/HistoryTab';
+import HighTrafficTab from './components/tabs/HighTrafficTab';
 import FixModal from './components/FixModal';
 import LoginPanel from './components/LoginPanel';
 
@@ -47,6 +48,7 @@ export default function App() {
             <TabBtn active={tab === 'category'} onClick={() => setTab('category')}>Category</TabBtn>
             <TabBtn active={tab === 'topic'} onClick={() => setTab('topic')}>Topic Browse</TabBtn>
             <TabBtn active={tab === 'history'} onClick={() => setTab('history')}>History</TabBtn>
+            <TabBtn active={tab === 'traffic'} onClick={() => setTab('traffic')}>High Traffic</TabBtn>
           </div>
         </header>
         <main style={{ maxWidth: 880, margin: '0 auto', padding: '24px 20px 48px' }}>
@@ -54,6 +56,7 @@ export default function App() {
           {tab === 'category' && <CategoryTab onFix={handleFix} onFixDeadLinks={setFixDeadLinksArticle} />}
           {tab === 'topic' && <TopicTab onFix={handleFix} onFixDeadLinks={setFixDeadLinksArticle} />}
           {tab === 'history' && <HistoryTab />}
+          {tab === 'traffic' && <HighTrafficTab />}
         </main>
         <footer style={{ maxWidth: 880, margin: '0 auto', padding: '0 20px 32px' }}>
           <div style={{ padding: '16px 20px', background: C.bgAlt, borderRadius: C.radius, border: `1px solid ${C.cardBorder}`, fontSize: 12, color: C.muted, lineHeight: 1.8 }}>
@@ -62,7 +65,7 @@ export default function App() {
             <strong style={{ color: C.textSec }}>Limits:</strong> Up to 500 articles per scan. Wayback checks rate-limited (~300ms between requests). Auto-retries 503 errors up to 3 times with backoff.
           </div>
           <div style={{ textAlign: 'center', marginTop: 16, fontSize: 12, color: C.mutedLight }}>
-            Created by <a href="https://github.com/nethahussain" target="_blank" rel="noopener noreferrer" style={{ color: C.accent, textDecoration: 'none', fontWeight: 600 }}>Netha Hussain</a> with Claude AI &middot; <a href="https://github.com/nethahussain/wikipedia-archive-today-detector" target="_blank" rel="noopener noreferrer" style={{ color: C.accent, textDecoration: 'none', fontWeight: 600 }}>Source code</a>
+            Based on <a href="https://github.com/nethahussain/wikipedia-archive-today-detector" target="_blank" rel="noopener noreferrer" style={{ color: C.accent, textDecoration: 'none', fontWeight: 600 }}>wikipedia-archive-today-detector</a> by <a href="https://github.com/nethahussain" target="_blank" rel="noopener noreferrer" style={{ color: C.accent, textDecoration: 'none', fontWeight: 600 }}>Netha Hussain</a>
           </div>
         </footer>
       </div>
